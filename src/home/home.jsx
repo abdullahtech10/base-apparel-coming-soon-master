@@ -1,9 +1,42 @@
-import { useState } from "react"
-
+import { useEffect, useState } from "react"
+import {gsap} from "gsap"
 
 function Home(){
     const [email, setEmail] = useState('')
     const [error, setError] = useState({})
+
+
+    useEffect(()=>{
+        const tl  = gsap.timeline({
+            defaults:{
+                duration: 2, 
+                ease: 'power2.inOut'
+            }
+        })
+
+        tl.fromTo('.left',{
+            opacity: 0,
+            x: '-100%'
+        }, {opacity: 1, x: 0, yoyo:true }, 0)
+        .fromTo('.hero-img ',{
+            opacity: 0,
+            x:'100%'
+        }, {
+            opacity:1, 
+            x:0
+        },0)
+
+        .fromTo('.logo',
+            {opacity: 0, y:'-100%'},
+            {opacity:1, y:0}
+         )
+
+         .fromTo('.hero-mobile',
+            {opacity:0, x: '100%'},
+            {opacity:1, x:0},0
+         )
+
+    },[])
 
     const handleChange =(e) =>{
         e.preventDefault()
@@ -25,7 +58,7 @@ function Home(){
    return(
       <div 
       className="container flex justify-between items-start pl-[16%] max-lg:flex-col-reverse max-lg:pl-0">
-        <div className="w-[400px] max-sm:w-full max-lg:text-center max-lg:px-4 max-lg:pt-10 max-lg:mx-auto max-lg:w-[500px]">
+        <div className="left w-[400px] max-sm:w-full max-lg:text-center max-lg:px-4 max-lg:pt-10 max-lg:mx-auto max-lg:w-[500px]">
             <div className="mt-7 mb-25 max-lg:hidden">
                 <img src="/assets/images/logo.svg" alt="" />
             </div>
@@ -68,14 +101,14 @@ function Home(){
             </form>
         </div>
         
-        <div>
+        <div className="right">
             <div className="pl-4 py-6 hidden max-lg:block">
-                 <img src="/assets/images/logo.svg" alt="" className=" " />
+                 <img src="/assets/images/logo.svg" alt="" className=" logo" />
             </div>
-            <img src="/assets/images/hero-desktop.jpg" alt="" className="h-screen w-[38vw] object-cover max-lg:hidden"/>
+            <img src="/assets/images/hero-desktop.jpg" alt="" className="hero-img h-screen w-[38vw] object-cover max-lg:hidden"/>
 
             <img src="/assets/images/hero-mobile.jpg" alt="" 
-            className="hidden max-lg:inline-block max-lg:w-screen"/>
+            className="hero-mobile hidden max-lg:inline-block max-lg:w-screen"/>
         </div>
 
  
